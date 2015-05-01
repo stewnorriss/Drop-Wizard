@@ -1,0 +1,11 @@
+#This node is disabled by it not having any Akka config. 
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8480
+  adminConnectors:
+    - type: http
+      port: 8481
+      
+ 

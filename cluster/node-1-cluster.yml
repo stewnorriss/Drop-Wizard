@@ -1,0 +1,33 @@
+#This node is a member of the cluster
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8180
+  adminConnectors:
+    - type: http
+      port: 8181
+      
+akkaConfiguration: 
+  configuration: >
+    akka {
+      actor {
+        provider = "akka.cluster.ClusterActorRefProvider"
+      }
+      remote {
+        log-remote-lifecycle-events = off
+        netty.tcp {
+          hostname = "127.0.0.1"
+          port = 8182
+        }
+      }
+    
+      cluster {
+        seed-nodes = [
+          "akka.tcp://ClusterSystem@127.0.0.1:8182",
+          "akka.tcp://ClusterSystem@127.0.0.1:8282",
+          "akka.tcp://ClusterSystem@127.0.0.1:8382"]
+    
+        auto-down-unreachable-after = 10s
+      }
+    }
